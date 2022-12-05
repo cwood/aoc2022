@@ -1,5 +1,7 @@
 package parse
 
+import "strings"
+
 type LineGroup struct {
 	Group []string
 }
@@ -24,4 +26,17 @@ func ToLineGroup(lines []string) []LineGroup {
 	groups = append(groups, group)
 
 	return groups
+}
+
+// ToWords takes a string and splits it into words based on a space
+func ToWords(lines []string) [][]string {
+
+	var wl = make([][]string, 0)
+
+	for _, l := range lines {
+		w := strings.Split(l, " ")
+		wl = append(wl, w)
+	}
+
+	return wl
 }
