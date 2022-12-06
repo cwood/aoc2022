@@ -7,7 +7,7 @@ import (
 )
 
 func TestToLineGroup(t *testing.T) {
-	g := ToLineGroup([]string{
+	g := ToLineGroupWithSep([]string{
 		"a",
 		"b",
 		"c",

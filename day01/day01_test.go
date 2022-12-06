@@ -14,7 +14,7 @@ func TestMostCaloriesByElf(t *testing.T) {
 		testInput, err := file.ReadLines("testinput")
 		require.NoError(t, err)
 
-		lgs := parse.ToLineGroup(testInput)
+		lgs := parse.ToLineGroupWithSep(testInput)
 		assert.Len(t, lgs, 5)
 
 		g, err := BiggestGroup(lgs, 1)
@@ -27,7 +27,7 @@ func TestMostCaloriesByElf(t *testing.T) {
 		input, err := file.ReadLines("input")
 		require.NoError(t, err)
 
-		lgs := parse.ToLineGroup(input)
+		lgs := parse.ToLineGroupWithSep(input)
 		assert.NotZero(t, lgs)
 
 		g, err := BiggestGroup(lgs, 1)
@@ -40,7 +40,7 @@ func TestMostCaloriesByElf(t *testing.T) {
 		testInput, err := file.ReadLines("testinput")
 		require.NoError(t, err)
 
-		lgs := parse.ToLineGroup(testInput)
+		lgs := parse.ToLineGroupWithSep(testInput)
 		assert.Len(t, lgs, 5)
 
 		g, err := BiggestGroup(lgs, 3)
@@ -53,7 +53,7 @@ func TestMostCaloriesByElf(t *testing.T) {
 		input, err := file.ReadLines("input")
 		require.NoError(t, err)
 
-		lgs := parse.ToLineGroup(input)
+		lgs := parse.ToLineGroupWithSep(input)
 		assert.NotZero(t, lgs)
 
 		g, err := BiggestGroup(lgs, 3)
