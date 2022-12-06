@@ -1,11 +1,16 @@
 package parse
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
 
 type LineGroup struct {
 	Group []string
 }
 
+// ToLineGroupWithCnt takes a input of strings and a group count and will
+// create groups of line to that count
 func ToLineGroupWithCnt(lines []string, c int) []LineGroup {
 
 	var (
@@ -59,4 +64,33 @@ func ToWords(lines []string) [][]string {
 	}
 
 	return wl
+}
+
+// ToRanges takes lines with a int-int,int-int and will
+// generate pairs of ints
+func ToRanges(input []string) ([][][]int, error) {
+	ranges := make([][][]int, 0)
+
+	for _, r := range input {
+		chunks := strings.Split(r, ",")
+		grp := make([][]int, 0)
+		for _, chnk := range chunks {
+			tmns := strings.SplitN(chnk, "-", 2)
+			s, err := strconv.Atoi(tmns[0])
+			if err != nil {
+				return nil, err
+			}
+
+			e, err := strconv.Atoi(tmns[1])
+			if err != nil {
+				return nil, err
+			}
+
+			grp = append(grp, []int{s, e})
+		}
+
+		ranges = append(ranges, grp)
+	}
+
+	return ranges, nil
 }
