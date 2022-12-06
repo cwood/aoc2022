@@ -17,7 +17,7 @@ func TestOverlapping(t *testing.T) {
 		ranges, err := parse.ToRanges(input)
 		require.NoError(t, err)
 
-		assert.Equal(t, 2, Overlapping(ranges))
+		assert.Equal(t, 2, ContainsAll(ranges))
 	})
 
 	t.Run("Day 4 Part 1", func(t *testing.T) {
@@ -27,6 +27,26 @@ func TestOverlapping(t *testing.T) {
 		ranges, err := parse.ToRanges(input)
 		require.NoError(t, err)
 
-		t.Logf("Day 4 Part 1: %d", Overlapping(ranges))
+		t.Logf("Day 4 Part 1: %d", ContainsAll(ranges))
 	})
+
+	t.Run("Day 4 Test Part 2", func(t *testing.T) {
+		input, err := file.ReadLines("testinput")
+		require.NoError(t, err)
+
+		ranges, err := parse.ToRanges(input)
+		require.NoError(t, err)
+
+		assert.Equal(t, 4, ContainsAny(ranges))
+	})
+
+	//t.Run("Day 4 Part 2", func(t *testing.T) {
+	//input, err := file.ReadLines("input")
+	//require.NoError(t, err)
+
+	//ranges, err := parse.ToRanges(input)
+	//require.NoError(t, err)
+
+	//t.Logf("Day 4 Part 2: %d", ContainsAny(ranges))
+	//})
 }

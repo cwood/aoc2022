@@ -1,6 +1,6 @@
 package day04
 
-func Overlapping(input [][][]int) int {
+func ContainsAll(input [][][]int) int {
 
 	var overlapping = 0
 
@@ -13,4 +13,14 @@ func Overlapping(input [][][]int) int {
 	}
 
 	return overlapping
+}
+
+func ContainsAny(input [][][]int) int {
+	var containsany = 0
+
+	for _, grp := range input {
+		grp[0], grp[1]
+	}
+
+	return containsany
 }
