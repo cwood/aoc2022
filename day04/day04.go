@@ -19,7 +19,15 @@ func ContainsAny(input [][][]int) int {
 	var containsany = 0
 
 	for _, grp := range input {
-		grp[0], grp[1]
+		if grp[1][0] <= grp[0][0] && grp[0][0] <= grp[1][1] {
+			containsany += 1
+		} else if grp[1][0] <= grp[0][1] && grp[0][1] <= grp[1][1] {
+			containsany += 1
+		} else if grp[0][0] <= grp[1][0] && grp[1][0] <= grp[0][1] {
+			containsany += 1
+		} else if grp[0][0] <= grp[1][1] && grp[1][1] <= grp[0][1] {
+			containsany += 1
+		}
 	}
 
 	return containsany

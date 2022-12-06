@@ -40,13 +40,13 @@ func TestOverlapping(t *testing.T) {
 		assert.Equal(t, 4, ContainsAny(ranges))
 	})
 
-	//t.Run("Day 4 Part 2", func(t *testing.T) {
-	//input, err := file.ReadLines("input")
-	//require.NoError(t, err)
+	t.Run("Day 4 Part 2", func(t *testing.T) {
+		input, err := file.ReadLines("input")
+		require.NoError(t, err)
 
-	//ranges, err := parse.ToRanges(input)
-	//require.NoError(t, err)
+		ranges, err := parse.ToRanges(input)
+		require.NoError(t, err)
 
-	//t.Logf("Day 4 Part 2: %d", ContainsAny(ranges))
-	//})
+		t.Logf("Day 4 Part 2: %d", ContainsAny(ranges))
+	})
 }
