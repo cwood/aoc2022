@@ -1,6 +1,7 @@
 package day05
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/cwood/aoc2022/pkg/file"
@@ -30,5 +31,27 @@ func TestStackParsing(t *testing.T) {
 		require.NoError(t, err)
 
 		assert.Len(t, cntr.Stacks, 9)
+	})
+}
+
+func TestTopStacksFromContainers(t *testing.T) {
+	t.Run("Day 5 Part 1 Test Input", func(t *testing.T) {
+		input, err := file.ReadLines("testinput")
+		require.NoError(t, err)
+
+		cntr, err := ParseInput(input)
+		require.NoError(t, err)
+
+		assert.Equal(t, []string{"C", "M", "Z"}, TopStacksFromContainer(cntr))
+	})
+
+	t.Run("Day 5 Part 1 Input", func(t *testing.T) {
+		input, err := file.ReadLines("input")
+		require.NoError(t, err)
+
+		cntr, err := ParseInput(input)
+		require.NoError(t, err)
+
+		t.Logf("Day 5 Part 1: %s", strings.Join(TopStacksFromContainer(cntr), ""))
 	})
 }
