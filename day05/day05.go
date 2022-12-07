@@ -1,6 +1,6 @@
 package day05
 
-func TopStacksFromContainer(c *Container) []string {
+func TopStacksFromContainer(c *Container, r bool) []string {
 
 	for _, instr := range c.Instructions {
 		amount, fcolumn, tcolumn := instr[0], instr[1], instr[2]
@@ -8,13 +8,17 @@ func TopStacksFromContainer(c *Container) []string {
 		fc := c.Stacks[fcolumn]
 		elemns := fc[len(fc)-amount:]
 
-		var relemns = make([]string, 0)
+		if r {
+			var relemns = make([]string, 0)
 
-		for i := len(elemns) - 1; i >= 0; i-- {
-			relemns = append(relemns, elemns[i])
+			for i := len(elemns) - 1; i >= 0; i-- {
+				relemns = append(relemns, elemns[i])
+			}
+
+			elemns = relemns
 		}
 
-		c.Stacks[tcolumn] = append(c.Stacks[tcolumn], relemns...)
+		c.Stacks[tcolumn] = append(c.Stacks[tcolumn], elemns...)
 		c.Stacks[fcolumn] = fc[:len(fc)-amount]
 	}
 

@@ -42,7 +42,7 @@ func TestTopStacksFromContainers(t *testing.T) {
 		cntr, err := ParseInput(input)
 		require.NoError(t, err)
 
-		assert.Equal(t, []string{"C", "M", "Z"}, TopStacksFromContainer(cntr))
+		assert.Equal(t, []string{"C", "M", "Z"}, TopStacksFromContainer(cntr, true))
 	})
 
 	t.Run("Day 5 Part 1 Input", func(t *testing.T) {
@@ -52,6 +52,26 @@ func TestTopStacksFromContainers(t *testing.T) {
 		cntr, err := ParseInput(input)
 		require.NoError(t, err)
 
-		t.Logf("Day 5 Part 1: %s", strings.Join(TopStacksFromContainer(cntr), ""))
+		t.Logf("Day 5 Part 1: %s", strings.Join(TopStacksFromContainer(cntr, true), ""))
+	})
+
+	t.Run("Day 5 Part 2 Test Input", func(t *testing.T) {
+		input, err := file.ReadLines("testinput")
+		require.NoError(t, err)
+
+		cntr, err := ParseInput(input)
+		require.NoError(t, err)
+
+		assert.Equal(t, []string{"M", "C", "D"}, TopStacksFromContainer(cntr, false))
+	})
+
+	t.Run("Day 5 Part 2 Input", func(t *testing.T) {
+		input, err := file.ReadLines("input")
+		require.NoError(t, err)
+
+		cntr, err := ParseInput(input)
+		require.NoError(t, err)
+
+		t.Logf("Day 5 Part 2: %s", strings.Join(TopStacksFromContainer(cntr, false), ""))
 	})
 }
