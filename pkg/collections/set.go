@@ -18,6 +18,22 @@ func (c Counter) Contains(v any) bool {
 	return ok
 }
 
+// All checks if all values are this value
+func (c Counter) All(v int) bool {
+
+	var meta = Counter{}
+
+	for _, v := range c {
+		meta.Add(v)
+	}
+
+	if !meta.Contains(v) {
+		return false
+	}
+
+	return meta[v] != len(c)-1
+}
+
 func (c Counter) Add(v any) {
 	if c.Contains(v) {
 		c[v] += 1
