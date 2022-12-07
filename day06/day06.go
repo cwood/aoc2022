@@ -1,18 +1,35 @@
 package day06
 
 import (
-	"log"
-
 	"github.com/cwood/aoc2022/pkg/collections"
 )
 
-func FindMarkerInLine(in string) int {
-	if len(in) < 4 {
+type Cfg struct {
+	windowLen int
+}
+
+type Option func(*Cfg)
+
+func WithWindowLength(i int) Option {
+	return func(c *Cfg) {
+		c.windowLen = i
+	}
+}
+
+func FindMarkerInLine(in string, opts ...Option) int {
+
+	cfg := &Cfg{windowLen: 4}
+
+	for _, opt := range opts {
+		opt(cfg)
+	}
+
+	if len(in) < cfg.windowLen {
 		return 0
 	}
 
-	for i := 4; i <= len(in)-1; i++ {
-		window := in[i-4 : i]
+	for i := cfg.windowLen; i <= len(in)-1; i++ {
+		window := in[i-cfg.windowLen : i]
 
 		c := collections.Counter{}
 		for _, r := range window {
@@ -20,7 +37,6 @@ func FindMarkerInLine(in string) int {
 		}
 
 		if c.All(1) {
-			log.Print(i, c, window)
 			return i
 		}
 	}

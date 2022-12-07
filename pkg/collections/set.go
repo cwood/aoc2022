@@ -31,7 +31,7 @@ func (c Counter) All(v int) bool {
 		return false
 	}
 
-	return meta[v] != len(c)-1
+	return meta[v] == len(c)
 }
 
 func (c Counter) Add(v any) {
