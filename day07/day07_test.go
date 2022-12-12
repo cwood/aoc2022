@@ -48,4 +48,24 @@ func TestDirectoriesNearist(t *testing.T) {
 
 		t.Logf("Day 7 Part 1: %d", DirectoriesNeariest(fs, 100000))
 	})
+
+	t.Run("Day 7 Test Part 2", func(t *testing.T) {
+		input, err := file.ReadLines("testinput")
+		require.NoError(t, err)
+
+		fs := NewFilesystemFromInput(input)
+		require.NotNil(t, fs)
+
+		assert.Equal(t, int64(24933642), FreeUpSpace(fs, 70000000, 30000000))
+	})
+
+	t.Run("Day 7 Part 2", func(t *testing.T) {
+		input, err := file.ReadLines("input")
+		require.NoError(t, err)
+
+		fs := NewFilesystemFromInput(input)
+		require.NotNil(t, fs)
+
+		t.Logf("Day 7 Part 2: %d", FreeUpSpace(fs, 70000000, 30000000))
+	})
 }

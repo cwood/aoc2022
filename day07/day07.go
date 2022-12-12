@@ -1,6 +1,7 @@
 package day07
 
 import (
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -110,11 +111,17 @@ func computeSize(prefix string, fs *Filesystem, m map[string]int64) {
 	}
 }
 
-// DirectoriesNeariest will take a filesystem and try to find directories that are nearest a value
-func DirectoriesNeariest(fs *Filesystem, nearest int64) int64 {
-
+func calculateSizes(fs *Filesystem) map[string]int64 {
 	var dirs = make(map[string]int64)
 	computeSize("", fs, dirs)
+	dirs["/"] = fs.Size()
+	return dirs
+}
+
+// DirectoriesNeariest will take a filesystem and try to find all directories nearest that value and
+// sum them and return that size
+func DirectoriesNeariest(fs *Filesystem, nearest int64) int64 {
+	dirs := calculateSizes(fs)
 
 	var total int64 = 0
 
@@ -128,4 +135,25 @@ func DirectoriesNeariest(fs *Filesystem, nearest int64) int64 {
 	}
 
 	return total
+}
+
+func FreeUpSpace(fs *Filesystem, totalSize int64, atleast int64) int64 {
+	dirs := calculateSizes(fs)
+
+	var sizes = make([]int64, 0)
+
+	used := totalSize - dirs["/"]
+	minToFree := atleast - used
+
+	for _, size := range dirs {
+		if size >= minToFree {
+			sizes = append(sizes, size)
+		}
+	}
+
+	sort.Slice(sizes, func(x int, y int) bool {
+		return sizes[x] > sizes[y]
+	})
+
+	return sizes[len(sizes)-1]
 }
