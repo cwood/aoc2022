@@ -1,0 +1,3 @@
+.PHONY: test
+test:
+	go test -v -cover -failfast -race -timeout 60s ./...
