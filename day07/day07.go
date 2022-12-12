@@ -15,10 +15,24 @@ type Filesystem struct {
 	Parent      *Filesystem
 	Files       []*File
 	Directories []*Filesystem
+
+	size int64
 }
 
 func (f Filesystem) Size() int64 {
-	return 0
+	if f.size != 0 {
+		return f.size
+	}
+
+	for _, fi := range f.Files {
+		f.size += fi.Size
+	}
+
+	for _, d := range f.Directories {
+		f.size += d.Size()
+	}
+
+	return f.size
 }
 
 func NewFilesystem(n string, p *Filesystem) *Filesystem {
@@ -87,4 +101,31 @@ scanner:
 	}
 
 	return root
+}
+
+func computeSize(prefix string, fs *Filesystem, m map[string]int64) {
+	for _, dir := range fs.Directories {
+		m[prefix+"/"+dir.Name] = dir.Size()
+		computeSize(prefix+"/"+dir.Name, dir, m)
+	}
+}
+
+// DirectoriesNeariest will take a filesystem and try to find directories that are nearest a value
+func DirectoriesNeariest(fs *Filesystem, nearest int64) int64 {
+
+	var dirs = make(map[string]int64)
+	computeSize("", fs, dirs)
+
+	var total int64 = 0
+
+	for dir, size := range dirs {
+		if size > nearest {
+			delete(dirs, dir)
+			continue
+		}
+
+		total += size
+	}
+
+	return total
 }

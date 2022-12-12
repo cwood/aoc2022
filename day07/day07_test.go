@@ -27,3 +27,25 @@ func TestNewFileSystemFromInput(t *testing.T) {
 	fs = NewFilesystemFromInput(input)
 	require.NotNil(t, fs)
 }
+
+func TestDirectoriesNearist(t *testing.T) {
+	t.Run("Day 7 Test Part 1", func(t *testing.T) {
+		input, err := file.ReadLines("testinput")
+		require.NoError(t, err)
+
+		fs := NewFilesystemFromInput(input)
+		require.NotNil(t, fs)
+
+		assert.Equal(t, int64(95437), DirectoriesNeariest(fs, 100000))
+	})
+
+	t.Run("Day 7 Part 1", func(t *testing.T) {
+		input, err := file.ReadLines("input")
+		require.NoError(t, err)
+
+		fs := NewFilesystemFromInput(input)
+		require.NotNil(t, fs)
+
+		t.Logf("Day 7 Part 1: %d", DirectoriesNeariest(fs, 100000))
+	})
+}
