@@ -31,6 +31,27 @@ func ToLineGroupWithCnt(lines []string, c int) []LineGroup {
 	return groups
 }
 
+// ToGrid parses a line with numbers and seperates each one into a item in a 2D array
+func ToGrid(lines []string) ([][]int, error) {
+
+	var grid = make([][]int, 0)
+
+	for _, l := range lines {
+		lg := make([]int, 0)
+
+		for _, w := range l {
+			n, err := strconv.Atoi(string(w))
+			if err != nil {
+				return nil, err
+			}
+			lg = append(lg, n)
+		}
+		grid = append(grid, lg)
+	}
+
+	return grid, nil
+}
+
 // ToLineGroupWithSep parses lines into groups and uses a empty line
 // separator to designate a new group start
 func ToLineGroupWithSep(lines []string) []LineGroup {
